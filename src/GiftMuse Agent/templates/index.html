@@ -1,19 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GiftMuse</title>
+  <title>GiftMuse Dashboard</title>
+  <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  <h2>🎁 GiftMuse Agent</h2>
-  <form action="/result" method="post">
-    <input name="occasion" placeholder="Occasion"><br>
-    <input name="recipient_gender" placeholder="Gender"><br>
-    <input name="relation" placeholder="Relation"><br>
-    <input name="budget" placeholder="Budget"><br>
-    <input name="rating" placeholder="Rating"><br>
-    <input name="likes" placeholder="Likes"><br>
-    <input name="dislikes" placeholder="Dislikes"><br>
-    <button type="submit">Generate Bundle</button>
-  </form>
+
+  <!-- 🎬 Hero Banner -->
+  <div class="hero">
+    <h1>🎁 GiftMuse</h1>
+    <p>Personalized Bundles. Cinematic Reveals. Reviewer-Ready.</p>
+  </div>
+
+  <!-- 🧩 Microservice Card: Gift Form -->
+  <div class="card">
+    <h2>🧩 Gift Form</h2>
+    <form action="/result" method="post">
+      <input name="occasion" placeholder="Occasion"><br>
+      <input name="recipient_gender" placeholder="Gender"><br>
+      <input name="relation" placeholder="Relation"><br>
+      <input name="budget" placeholder="Budget"><br>
+      <input name="rating" placeholder="Rating"><br>
+      <input name="likes" placeholder="Likes"><br>
+      <input name="dislikes" placeholder="Dislikes"><br>
+      <button type="submit">Generate Bundle</button>
+    </form>
+  </div>
+
+  <!-- 🧠 Prompt Preview -->
+  {% if prompt %}
+  <div class="card">
+    <h2>🧠 Prompt Preview</h2>
+    <pre>{{ prompt }}</pre>
+  </div>
+  {% endif %}
+
+  <!-- 🎁 Bundle Reveal -->
+  {% if bundle and not bundle.error %}
+  <div class="card">
+    <h2>🎁 Bundle Reveal</h2>
+    <pre>{{ bundle | tojson(indent=2) }}</pre>
+  </div>
+  {% endif %}
+
+  <!-- ⚠️ Error Card -->
+  {% if bundle.error %}
+  <div class="card error">
+    <h2>⚠️ Gemini Error</h2>
+    <p>{{ bundle.error.message }}</p>
+    <a href="https://ai.google.dev/gemini-api/docs/rate-limits" target="_blank">Check quota limits</a>
+  </div>
+  {% endif %}
+
 </body>
 </html>
