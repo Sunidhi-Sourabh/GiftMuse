@@ -44,12 +44,11 @@
   {% endif %}
 
   <!-- ⚠️ Error Card -->
-{% if bundle and bundle.error %}
-  <div class="card error">
-    <h2>⚠️ Gemini Error</h2>
-    <p>{{ bundle.error.message }}</p>
-    <a href="https://ai.google.dev/gemini-api/docs/rate-limits" target="_blank">Check quota limits</a>
-  </div>
+{% if bundle and not bundle.error %}
+<div class="card fade-in">
+  <h2>🎁 Bundle Reveal</h2>
+  <pre>{{ bundle | tojson(indent=2) }}</pre>
+</div>
 {% endif %}
 
 </body>
