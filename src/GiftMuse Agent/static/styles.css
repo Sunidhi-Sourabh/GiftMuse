@@ -1,0 +1,61 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.hero {
+  background-color: #7C4DFF;
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.card {
+  background: white;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #7C4DFF;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+button {
+  background-color: #7C4DFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #5e35b1;
+}
+
+.error {
+  border-left: 6px solid red;
+  background-color: #ffe6e6;
+}
+.card {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.card:hover {
+  transform: scale(1.02);
+}
