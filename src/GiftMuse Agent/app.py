@@ -5,10 +5,10 @@ from config import GEMINI_API_KEY
 
 app = Flask(__name__)
 
-# 🔹 Homepage route (for HTML form or Vue mount point)
+# 🔹 Homepage route (dashboard layout)
 @app.route("/")
 def home():
-    return render_template("index.html")  # fallback form or Vue mount
+    return render_template("index.html")  # dashboard with embedded form
 
 # 🔹 HTML form submission route
 @app.route("/result", methods=["POST"])
@@ -21,9 +21,9 @@ def result():
         print("🧠 Prompt constructed:", prompt)
 
         headers = {
-    "Content-Type": "application/json",
-    "x-goog-api-key": GEMINI_API_KEY
-}
+            "Content-Type": "application/json",
+            "x-goog-api-key": GEMINI_API_KEY
+        }
 
         payload = {
             "contents": [{"parts": [{"text": prompt}]}]
@@ -38,55 +38,56 @@ def result():
         bundle = response.json()
         print("🎁 Gemini response:", bundle)
 
-        return render_template("result.html", bundle=bundle)
+        return render_template("index.html", prompt=prompt, bundle=bundle)
 
     except Exception as e:
         print("❌ Error in /result route:", str(e))
-        return render_template("result.html", bundle={"error": str(e)})
+        return render_template("index.html", bundle={"error": str(e)})
 
-# 🔹 Vue/JS API route
+# 🔹 Vue/JS API route (same Gemini endpoint)
 @app.route("/generate-bundle", methods=["POST"])
 def generate_bundle():
-    data = request.get_json()
-    print("📦 Received JSON:", data)
-
-    prompt = build_prompt(data)
-    print("🧠 Prompt from API:", prompt)
-
-    headers = {
-        "Authorization": f"Bearer {GEMINI_API_KEY}",
-        "Content-Type": "application/json"
-    }
-
-    payload = {
-        "contents": [{"parts": [{"text": prompt}]}]
-    }
-
     try:
+        data = request.get_json()
+        print("📦 Received JSON:", data)
+
+        prompt = build_prompt(data)
+        print("🧠 Prompt from API:", prompt)
+
+        headers = {
+            "Content-Type": "application/json",
+            "x-goog-api-key": GEMINI_API_KEY
+        }
+
+        payload = {
+            "contents": [{"parts": [{"text": prompt}]}]
+        }
+
         response = requests.post(
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent",
+            "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent",
             headers=headers,
             json=payload
         )
+
         result = response.json()
         print("🎁 Gemini response:", result)
         return jsonify(result)
+
     except Exception as e:
         print("❌ Gemini API error:", str(e))
         return jsonify({"error": "Gemini call failed", "details": str(e)})
 
 # 🔹 Prompt builder
 def build_prompt(data):
-    return f"""
-    Suggest a personalized gift bundle for the following occasion:
-    - Occasion: {data.get('occasion')}
-    - Recipient: {data.get('relation')} ({data.get('recipient_gender')})
-    - Budget: ₹{data.get('budget')}
-    - Preferred product rating: {data.get('rating')}+ stars
-    - Likes: {data.get('likes')}
-    - Dislikes: {data.get('dislikes')}
-    Use only products from this catalog. Return bundle items with reasoning, trust score, and delivery ETA.
-    """
+    prompt = f"Suggest a personalized gift bundle for {data.get('relation')} ({data.get('recipient_gender')}) on {data.get('occasion')} within ₹{data.get('budget')}."
+    if data.get("likes"):
+        prompt += f" They like {data.get('likes')}."
+    if data.get("dislikes"):
+        prompt += f" Avoid {data.get('dislikes')}."
+    if data.get("rating"):
+        prompt += f" Prefer products rated {data.get('rating')}+ stars."
+    prompt += " Use only products from this catalog. Return bundle items with reasoning, trust score, and delivery ETA."
+    return prompt
 
 # 🔹 Run server
 if __name__ == '__main__':
