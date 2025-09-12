@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>GiftMuse Dashboard</title>
-  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
 
@@ -12,7 +12,7 @@
     <p>Personalized Bundles. Cinematic Reveals. Reviewer-Ready.</p>
   </div>
 
-  <!-- 🧩 Microservice Card: Gift Form -->
+  <!-- 🧩 Gift Form -->
   <div class="card">
     <h2>🧩 Gift Form</h2>
     <form action="/result" method="post">
@@ -30,26 +30,59 @@
   <!-- 🧠 Prompt Preview -->
   {% if prompt %}
   <div class="card">
-    <h2>🧠 Prompt Preview</h2>
-    <pre>{{ prompt }}</pre>
+    <h2>🧾 Prompt Preview</h2>
+    <button onclick="togglePrompt()">Toggle Prompt</button>
+    <pre id="promptBlock" style="display:none;">{{ prompt }}</pre>
   </div>
   {% endif %}
 
   <!-- 🎁 Bundle Reveal -->
   {% if bundle and not bundle.error %}
-  <div class="card">
+  <div class="card fade-in">
     <h2>🎁 Bundle Reveal</h2>
-    <pre>{{ bundle | tojson(indent=2) }}</pre>
+    <pre id="bundleText">{{ bundle | tojson(indent=2) }}</pre>
+    <button onclick="copyBundle()">📋 Copy Bundle</button>
+    <button onclick="shareBundle()">🔗 Share with Reviewer</button>
   </div>
   {% endif %}
 
   <!-- ⚠️ Error Card -->
-{% if bundle and not bundle.error %}
-<div class="card fade-in">
-  <h2>🎁 Bundle Reveal</h2>
-  <pre>{{ bundle | tojson(indent=2) }}</pre>
-</div>
-{% endif %}
+  {% if bundle and bundle.error %}
+  <div class="card error">
+    <h2>⚠️ Gemini Error</h2>
+    <p>{{ bundle.error.message }}</p>
+    <a href="https://ai.google.dev/gemini-api/docs/rate-limits" target="_blank">Check quota limits</a><br><br>
+    <button onclick="retryBundle()">🔄 Retry</button>
+    <div id="spinner" style="display:none;">⏳ Retrying...</div>
+  </div>
+  {% endif %}
+
+  <!-- 🎯 Scripts -->
+  <script>
+    function togglePrompt() {
+      const block = document.getElementById("promptBlock");
+      block.style.display = block.style.display === "none" ? "block" : "none";
+    }
+
+    function copyBundle() {
+      const text = document.getElementById("bundleText").innerText;
+      navigator.clipboard.writeText(text);
+      alert("Bundle copied to clipboard!");
+    }
+
+    function shareBundle() {
+      const text = encodeURIComponent(document.getElementById("bundleText").innerText);
+      const url = `https://wa.me/?text=${text}`;
+      window.open(url, '_blank');
+    }
+
+    function retryBundle() {
+      document.getElementById("spinner").style.display = "block";
+      setTimeout(() => {
+        location.reload();
+      }, 1500);
+    }
+  </script>
 
 </body>
 </html>
