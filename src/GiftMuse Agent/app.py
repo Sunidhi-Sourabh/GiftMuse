@@ -8,7 +8,7 @@ app = Flask(__name__)
 # 🔹 Homepage route (dashboard layout)
 @app.route("/")
 def home():
-    return render_template("index.html")  # dashboard with embedded form
+    return render_template("index.html", prompt=None, bundle=None)
 
 # 🔹 HTML form submission route
 @app.route("/result", methods=["POST"])
