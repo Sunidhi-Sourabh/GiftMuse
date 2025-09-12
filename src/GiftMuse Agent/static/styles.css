@@ -1,3 +1,6 @@
+/* 🎨 Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 /* Base Reset & Font */
 body {
   font-family: 'Poppins', sans-serif;
@@ -7,7 +10,7 @@ body {
   color: #333;
 }
 
-/* Hero Banner */
+/* 🎯 Hero Banner */
 .hero {
   background-color: #00C9A7; /* Turquoise Green */
   color: white;
@@ -17,7 +20,15 @@ body {
   border-bottom: 2px solid #00C9A7;
 }
 
-/* Card Layout */
+.hero h1 {
+  font-size: 3.5rem;         /* Splashier entrance */
+  font-weight: 600;          /* Semi-bold */
+  letter-spacing: 1px;       /* Elegant spacing */
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 201, 167, 0.3); /* Subtle glow */
+}
+
+/* 🧩 Card Layout */
 .card {
   background: white;
   margin: 2rem auto;
@@ -41,7 +52,7 @@ body {
 }
 
 /* Form Inputs */
-input, select, button {
+input, select {
   width: 100%;
   padding: 0.75rem;
   margin: 0.5rem 0;
@@ -52,13 +63,16 @@ input, select, button {
   font-size: 1rem;
 }
 
-/* Button Styling */
+/* Buttons */
 button {
   background-color: #00C9A7;
   color: white;
   font-weight: bold;
   border: none;
   cursor: pointer;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 201, 167, 0.3);
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
@@ -68,7 +82,7 @@ button:hover {
   box-shadow: 0 0 15px rgba(0, 158, 133, 0.4);
 }
 
-/* Error Card */
+/* ⚠️ Error Card */
 .error {
   border-left: 6px solid red;
   background-color: #ffe6e6;
@@ -76,7 +90,7 @@ button:hover {
   box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
 }
 
-/* Link Styling */
+/* Links */
 a {
   color: #00C9A7;
   text-decoration: underline;
@@ -86,6 +100,7 @@ a:hover {
   color: #009e85;
 }
 
+/* ✨ Fade-In Animation */
 .fade-in {
   animation: fadeIn 0.6s ease-in forwards;
   opacity: 0;
@@ -93,4 +108,21 @@ a:hover {
 
 @keyframes fadeIn {
   to { opacity: 1; }
+}
+
+/* ⏳ Spinner */
+#spinner {
+  font-style: italic;
+  color: #009e85;
+  margin-top: 0.5rem;
+}
+
+/* 🧾 Prompt Block */
+#promptBlock {
+  background-color: #f0fdfc;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px dashed #00C9A7;
+  margin-top: 0.5rem;
+  white-space: pre-wrap;
 }
