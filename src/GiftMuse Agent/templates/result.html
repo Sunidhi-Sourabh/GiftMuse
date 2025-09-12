@@ -1,0 +1,13 @@
+<h2>🎁 Your Gift Bundle</h2>
+{% if bundle.error %}
+  <p style="color:red;">Error: {{ bundle.error }}</p>
+{% else %}
+  <pre>{{ bundle | tojson(indent=2) }}</pre>
+{% endif %}
+{% if bundle.error %}
+  <div style="border:1px solid red; padding:10px;">
+    <h3>⚠️ Gemini is thinking too hard</h3>
+    <p>{{ bundle.error.message }}</p>
+    <p><a href="https://ai.google.dev/gemini-api/docs/rate-limits" target="_blank">Check quota limits</a></p>
+  </div>
+{% endif %}
