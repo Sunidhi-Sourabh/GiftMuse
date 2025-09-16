@@ -55,7 +55,17 @@ It empowers users to:
 
 ---
 
+## ©️ Idea & Build Ownership
 
+**GiftMuse** is an original concept ideated and developed by **Sunidhi Sourabh**.  
+All branding, prompt logic, fallback architecture, and emotional UX design are proprietary to the creator.
+
+Unauthorized reproduction, repackaging, or derivative use of this idea without explicit permission is discouraged.  
+This project reflects personal learning, ethical intent, and ecosystem empowerment.
+
+© 2025 Sunidhi Sourabh. All rights reserved.
+
+---
 
 ## 💬 Feedback & Collaboration
 
