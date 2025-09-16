@@ -1,4 +1,5 @@
-# 🎁 GiftMuse — Gifts That Think. Bundles That Feel.
+# 🎁 GiftMuse 
+~Gifts That Think. Bundles That Feel.
 
 **GiftMuse** is an emotionally intelligent agentic tool designed to generate personalized gifting bundles powered by AI. Built with clarity, fallback logic, and cinematic UX, it transforms gifting into a trust-first experience—where every bundle feels intentional, and every suggestion carries emotional weight.
 
