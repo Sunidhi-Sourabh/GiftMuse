@@ -27,7 +27,7 @@ This project reflects my personal build philosophy:
 
 - 🛡️ **Fallback logic**  
   Ensures graceful degradation when API fails or input is incomplete—no blank screens, ever.
-  - 🧩 **Trust overlay**  
+- 🧩 **Trust overlay**  
   Each bundle includes a trust score and badge logic to guide user confidence.
 
 - 🎨 **Cinematic dashboard UI**  
